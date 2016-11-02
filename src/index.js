@@ -21,6 +21,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <Route path="b/" component={BoardView} />
         <Route path="boards/" component={BoardView} />
+        <IndexRoute component={BoardView} />
       </Route>
     </Router>
   </Provider>,

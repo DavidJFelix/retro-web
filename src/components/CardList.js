@@ -2,6 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 
+const mapStateToProps = (state) => {
+  return { cards: state.cards }
+};
+
+
 const CardList = ({cards}) => (
   <div className="CardList">
     {cards.map((card, index) => (
@@ -10,4 +15,4 @@ const CardList = ({cards}) => (
   </div>
 );
 
-export default connect()(CardList);
+export default connect(mapStateToProps)(CardList);

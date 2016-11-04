@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux';
-import { routeReducer } from 'react-router-redux';
+import { routerReducer } from 'react-router-redux';
 import { responsiveStateReducer } from 'redux-responsive';
+
+import cards from './modules/cards';
+
 
 const retroApp = combineReducers({
   browser: responsiveStateReducer,
-  routing: routeReducer,
+  cards,
+  routing: routerReducer,
 })
 
 export default retroApp;

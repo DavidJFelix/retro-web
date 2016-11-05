@@ -1,0 +1,10 @@
+.Card {
+  display: block;
+  background: purple;
+}
+
+.Card__title {
+  display: inline-block;
+  color: white;
+  font-weight: bold;
+}

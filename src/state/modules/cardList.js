@@ -5,7 +5,14 @@ export const actionTypes = keyMirror({
   ADD_CARD: null,
 });
 
-const initialState = [];
+const initialState = [
+  {
+    title: "sample1",
+  },
+  {
+    title: "sample2",
+  }
+];
 
 export function addCard(card) {
   return {

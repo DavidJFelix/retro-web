@@ -1,7 +1,10 @@
 import keyMirror from 'keymirror';
 
-
 export const actionTypes = keyMirror({
+  CONNECT_BOARD: null,
+  CONNECT_BOARD_SUCCESS: null,
+  CONNECT_BOARD_ERROR: null,
+
   ADD_CARD: null,
 });
 
@@ -13,6 +16,27 @@ const initialState = [
     title: "sample2",
   }
 ];
+
+export function connectToChannel(socket) {
+  console.log("connectToChannel");
+  return dispatch => {
+    const channel = socket.channel('board:lobby')
+    console.log("dispatch")
+    channel.join()
+      .receive('ok', () => {
+        console.log("ok");
+        dispatch({
+          type: actionTypes.CONNECT_BOARD_SUCCESS,
+        });
+      })
+      .receive('error', () => {
+        console.log("error");
+        dispatch({
+          type: actionTypes.CONNECT_BOARD_ERROR,
+        });
+      })
+  };
+}
 
 export function addCard(card) {
   return {

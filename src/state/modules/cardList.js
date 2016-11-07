@@ -34,7 +34,14 @@ export function connectToChannel(socket) {
         dispatch({
           type: actionTypes.CONNECT_BOARD_ERROR,
         });
-      })
+      });
+    channel.on('new_card', (card) => {
+      console.log('CARD: ', card);
+      dispatch({
+        type: actionTypes.ADD_CARD,
+        card
+      });
+    });
   };
 }
 

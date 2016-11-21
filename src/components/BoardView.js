@@ -21,7 +21,7 @@ class BoardView extends React.Component {
     return(
       <div className='BoardView'>
         <CardList />
-        <AddCardInput />
+        <AddCardInput/>
       </div>
     );
   }

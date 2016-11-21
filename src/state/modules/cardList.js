@@ -1,11 +1,14 @@
 import keyMirror from 'keymirror';
 
+import { actionTypes as sessionActionTypes } from './session';
+
 export const actionTypes = keyMirror({
   CONNECT_BOARD: null,
   CONNECT_BOARD_SUCCESS: null,
   CONNECT_BOARD_ERROR: null,
 
   ADD_CARD: null,
+  CREATE_CARD: null,
 });
 
 const initialState = [
@@ -35,20 +38,26 @@ export function connectToChannel(socket) {
           type: actionTypes.CONNECT_BOARD_ERROR,
         });
       });
-    channel.on('new_card', (card) => {
+    channel.on('card:created', (card) => {
       console.log('CARD: ', card);
       dispatch({
         type: actionTypes.ADD_CARD,
         card
       });
     });
+
+    dispatch({
+      type: sessionActionTypes.CONNECTED_TO_CHANNEL,
+      channel,
+    });
   };
 }
 
-export function addCard(card) {
+export function addCard(title, channel) {
   return {
-    card,
-    type: actionTypes.ADD_CARD,
+    type: actionTypes.CREATE_CARD,
+    channel,
+    title,
   }
 }
 
@@ -59,6 +68,9 @@ export default function reducer(state = initialState, action) {
           ...state,
           action.card
       ];
+    case actionTypes.CREATE_CARD:
+      action.channel.push("card:create", {title: action.title});
+      return state;
     default:
       return state;
   }
